@@ -23,7 +23,7 @@ exports.getDashboardData = async (req, res) => {
 
         // Get income transactions in the last 60 days
         const last60DaysIncomeTransactions = await Income.find({
-            userId,
+            userId: userObjectId,
             date: { $gte: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000) },
         }).sort({ date: -1 });
 
@@ -35,7 +35,7 @@ exports.getDashboardData = async (req, res) => {
 
         // Get expense transactions in the last 30 days
         const last30DaysExpenseTransactions = await Expense.find({
-            userId,
+            userId: userObjectId,
             date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
         }).sort({ date: -1 });
 
@@ -47,13 +47,13 @@ exports.getDashboardData = async (req, res) => {
 
         //Fetch last 5 transactions (income + expenses)
         const lastTransactions = [
-            ...(await Income.find({ userId }).sort({ date: -1 }).limit(5)).map(
+            ...(await Income.find({ userId: userObjectId }).sort({ date: -1 }).limit(5)).map(
                 (txn) => ({
                     ...txn.toObject(),
                     type: "income",
                 })
             ),
-            ...(await Expense.find({ userId }).sort({ date: -1 }).limit(5)).map(
+            ...(await Expense.find({ userId: userObjectId }).sort({ date: -1 }).limit(5)).map(
                 (txn) => ({
                     ...txn.toObject(),
                     type: "expense",
