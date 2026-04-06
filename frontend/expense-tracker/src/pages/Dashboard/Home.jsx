@@ -88,6 +88,9 @@ const Home = () => {
                         transactions={dashboardData?.last30DaysExpense?.transactions || 0}
                         onSeeMore={() => navigate("/expense")}
                     />
+                    <Last30DaysExpenses
+                        data={dashboardData?.Last30DaysExpenses?.transactions || []}
+                    />
                 </div>
             </div>
         </DashboardLayout>        
