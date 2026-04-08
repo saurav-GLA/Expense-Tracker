@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Last30DaysExpenses = ({data}) => {
   
-  const [chartData, setChartData]
-  return (
-  <div className="card col-span-1">
-    <div className="flex items-canter justify-between">
-      <h5 className="text-lg"> Last 30 Days Expenses</h5>
-    </div>
+  const [chartData, setChartData] = useState(data || []);
 
-    
-  </div>
+  return (
+    <div className="card col-span-1">
+      <div className="flex items-center justify-between">
+        <h5 className="text-lg"> Last 30 Days Expenses</h5>
+      </div>
+      <p>Total transactions: {chartData.length}</p>
+    </div>
   )
-}//2:55
+}
+
 export default Last30DaysExpenses
