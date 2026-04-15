@@ -10,7 +10,7 @@ import {
     ResponsiveContainer,
     Cell,
 } from "recharts";
-import CustomTooltip from './CustomTooltip';
+
 
 const CustomBarChart = ({data}) => {
 
@@ -40,7 +40,7 @@ const CustomBarChart = ({data}) => {
             <BarChart data={data}>
                 <CartesianGrid stroke="none" />
 
-                <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
+                <XAxis dataKey="category" tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
                 <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
 
                 <Tooltip content={<CustomTooltip />} />

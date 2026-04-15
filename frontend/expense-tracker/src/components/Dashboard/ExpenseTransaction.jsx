@@ -4,6 +4,7 @@ import { LuArrowRight } from "react-icons/lu";
 import TransactionInfoCard from "../Cards/TransactionInfoCard"
 
 const ExpenseTransaction = ({transactions, onSeeMore}) => {
+  console.log(transactions, typeof transactions);
   return (
     <div className="card">
        <div className="flex items-center justify-between">

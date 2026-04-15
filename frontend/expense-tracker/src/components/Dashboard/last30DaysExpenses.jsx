@@ -4,7 +4,7 @@ import { prepareExpenseBarChartData } from '../../utils/helper';
 import CustomBarChart from '../Charts/CustomBarChart';
 import { useState } from 'react';
 
-const last30DaysExpenses = ({data}) => {
+const Last30DaysExpenses = ({data}) => {
 
   const [chartData, setChartData] = useState([]);
 
@@ -26,4 +26,4 @@ const last30DaysExpenses = ({data}) => {
   )
 }
 
-export default last30DaysExpenses
+export default Last30DaysExpenses

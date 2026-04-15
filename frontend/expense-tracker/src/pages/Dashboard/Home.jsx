@@ -14,7 +14,9 @@ import { addThousandsSeparator } from '../../utils/helper';
 import RecentTransactions from '../../components/Dashboard/RecentTransactions';
 import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 import ExpenseTransaction from '../../components/Dashboard/ExpenseTransaction';
-import last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
+import Last30DaysExpenses from '../../components/Dashboard/Last30DaysExpenses';
+import RecentIncomeWithChart from '../../components/Dashboard/RecentIncomeWithChart';
+
 
 const Home = () => {
     useUserAuth();
@@ -47,7 +49,7 @@ const Home = () => {
         fetchDashboardData();
         return () => {};
     }, []);
-
+    console.log(JSON.stringify(dashboardData, null, 2));
     return(
         <DashboardLayout activeMenu="Dashboard">
             <div className="my-5 mx-auto">
@@ -86,13 +88,18 @@ const Home = () => {
                     /> */}
 
                     {/* <ExpenseTransaction
-                        transactions={dashboardData?.last30DaysExpense?.transactions || 0}
+                        transactions={dashboardData?.last30DayExpenses?.transactions || []}
                         onSeeMore={() => navigate("/expense")}
                     />
                     
-                    <last30DaysExpenses
-                      data={dashboardData?.last30DaysExpenses?.transactions || []}
-                     />  */}
+                    <Last30DaysExpenses
+                        data={dashboardData?.last30DayExpenses?.transactions || []}
+                    /> */}
+
+                    <RecentIncomeWithChart
+                        data={dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []}
+                        totalIncome={dashboardData?.totalIncome || 0}
+                    />
                 </div>
             </div>
         </DashboardLayout>        
