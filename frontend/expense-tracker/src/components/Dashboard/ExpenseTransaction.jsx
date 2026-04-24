@@ -1,20 +1,22 @@
-import moment from "moment";
 import React from 'react';
+import moment from "moment";
 import { LuArrowRight } from "react-icons/lu";
-import TransactionInfoCard from "../Cards/TransactionInfoCard";
+import TransactionInfoCard from "../Cards/TransactionInfoCard"
 
 const ExpenseTransaction = ({transactions, onSeeMore}) => {
+  console.log(transactions, typeof transactions);
   return (
     <div className="card">
-      <div className="flex items-center justify-between">
-        <h5 className="text-lg">Express</h5>
-        
-        <button className="card-btn" onClick={onSeeMore}>
-          See All <LuArrowRight className="text-base"/>
+       <div className="flex items-center justify-between">
+        <h5 className='text-lg'>Expense</h5>
+
+        <button className='card-btn' onClick={onSeeMore}>
+          See All <LuArrowRight className />
         </button>
-      </div>
-      <div className="mt-6">
-        {transactions?.slice(0,5)?.map((expense) => (
+       </div>
+
+       <div className="mt-6">
+        {transactions?.slice(0, 5)?.map((expense) => (
           <TransactionInfoCard
             key={expense._id}
             title={expense.category}
@@ -23,9 +25,9 @@ const ExpenseTransaction = ({transactions, onSeeMore}) => {
             amount={expense.amount}
             type="expense"
             hideDeleteBtn
-            />
+          />
         ))}
-      </div>
+       </div>
     </div>
   );
 };

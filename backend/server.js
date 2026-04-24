@@ -1,4 +1,4 @@
-require("dotenv").config();
+ require("dotenv").config();
 const express = require("express")
 const cors = require('cors')
 const path = require("path");
@@ -30,8 +30,24 @@ app.use("/api/v1/dashboard", dashboardRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Root route
+app.get("/", (req, res) => {
+    res.json({
+        message: "Expense Tracker API is running",
+        version: "1.0.0",
+        endpoints: {
+            auth: "/api/v1/auth",
+            income: "/api/v1/income",
+            expense: "/api/v1/expense",
+            dashboard: "/api/v1/dashboard"
+        }
+    });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
 
 
-// Start from : 2 : 42
+// Start from : 3:18:31
+
+// done till : 3:29:00
