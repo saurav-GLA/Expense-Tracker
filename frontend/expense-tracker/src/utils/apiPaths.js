@@ -16,12 +16,18 @@ export const API_PATHS = {
         DELETE_INCOME: (incomeId) => `/api/v1/income/${incomeId}`,
         DOWNLOAD_INCOME: `/api/v1/income/downloadexcel`,
     },
-    EXPENSE:{
-        ADD_EXPENSE: "/api/v1/expense/add",
+    EXPENSE: {
         GET_ALL_EXPENSE: "/api/v1/expense/get",
-        DELETE_EXPENSE: (expenseId) => `/api/v1/expense/${expenseId}`,
+        ADD_EXPENSE: "/api/v1/expense/add",
+        DELETE_EXPENSE: (id) => `/api/v1/expense/${id}`,
         DOWNLOAD_EXPENSE: `/api/v1/expense/downloadexcel`,
     },
+    // EXPENSE:{
+    //     ADD_EXPENSE: "/api/v1/expense/add",
+    //     GET_ALL_EXPENSE: "/api/v1/expense/get",
+    //     DELETE_EXPENSE: (expenseId) => `/api/v1/expense/${expenseId}`,
+    //     DOWNLOAD_EXPENSE: `/api/v1/expense/downloadexcel`,
+    // },
     IMAGE: {
         UPLOAD_IMAGE: "/api/v1/auth/upload-image",
     },

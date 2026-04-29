@@ -38,14 +38,62 @@ export const prepareExpenseBarChartData = (data = []) => {
     return chartData;
 }
 
-export const prepareIncomeBarChartData = (data = []) => {
-    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
+// export const prepareIncomeBarChartData = (data = []) => {
+//     const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
 
-    const chartData = sortedData.map((item) => ({
-        month: moment(item?.date).format('Do MMM'),
-        amount: item?.amount,
-        source: item?.source,
+//     const chartData = sortedData.map((item) => ({
+//         month: moment(item?.date).format('Do MMM'),
+//         amount: item?.amount,
+//         source: item?.source,
+//     }));
+
+//     return chartData;
+// }
+
+// src/utils/helper.js  (add/replace this function)
+
+export const prepareIncomeBarChartData = (transactions = []) => {
+    if (!transactions || transactions.length === 0) {
+        console.log("No transactions for chart");
+        return [];
+    }
+
+    
+    const grouped = transactions.reduce((acc, item) => {
+        const key = item.source || "Other";   
+
+        if (!acc[key]) {
+            acc[key] = 0;
+        }
+        acc[key] += Number(item.amount) || 0;
+        return acc;
+    }, {});
+
+    return Object.entries(grouped).map(([category, amount]) => ({
+        category,
+        amount: Math.round(amount)
     }));
+};
 
-    return chartData;
-}
+// export const prepareExpenseBarChartData = (transactions = []) => {
+//     if (!transactions || transactions.length === 0) {
+//         console.log("No transactions for chart");
+//         return [];
+//     }
+
+    
+//     const grouped = transactions.reduce((acc, item) => {
+//         const key = item.category || "Other";   
+
+//         if (!acc[key]) {
+//             acc[key] = 0;
+//         }
+//         acc[key] += Number(item.amount) || 0;
+//         return acc;
+//     }, {});
+
+//     return Object.entries(grouped).map(([category, amount]) => ({
+//         category,
+//         amount: Math.round(amount)
+//     }));
+// };
