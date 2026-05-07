@@ -9,12 +9,20 @@ import AddIncomeForm from '../../components/Income/AddIncomeForm';
 import toast from 'react-hot-toast';
 import IncomeList from '../../components/Income/IncomeList';
 import DeleteAlert from '../../components/layouts/DeleteAlert';
+import { useUserAuth } from '../../hooks/useUserAuth';
 
 const Income = () => {
+    useUserAuth();
+
     const [incomeData, setIncomeData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [openDeleteAlert, setOpenDeleteAlert] = useState({
+        show: false,
+        data: null,
+    });
     const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
 
+    //Get All Income Details
     const fetchIncomeDetails = async () => {
         if (loading) return;
         setLoading(true);
@@ -36,14 +44,33 @@ const Income = () => {
         }
     };
 
+    //Handle download income details
     const handleDownloadIncomeDetails = async () => {
-        console.log("Download clicked");
+         try {
+            const response = await axiosInstance.get(
+                API_PATHS.INCOME.DOWNLOAD_INCOME,
+                {
+                    responseType: "blob",
+                }
+            );
+
+            
+            // Create a URL for the blob
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "income-details.xlsx");
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.log("Error downloading income details:", error);
+            toast.error("Failed to download income details. Please try again")
+        }
     };
 
-    const [openDeleteAlert, setOpenDeleteAlert] = useState({
-        show: false,
-        data: null,
-    });
+    // Delete Income
     const deleteIncome = async (id) => {
         try {
             await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
@@ -61,7 +88,7 @@ const Income = () => {
         }
     }
 
-    // Handle Add Income (will implement later)
+    // Handle Add Income 
     const handleAddIncome = async (income) => {
         const { source, amount, date, icon } = income;
 

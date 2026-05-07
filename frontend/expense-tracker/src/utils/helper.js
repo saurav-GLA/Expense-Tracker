@@ -38,19 +38,6 @@ export const prepareExpenseBarChartData = (data = []) => {
     return chartData;
 }
 
-// export const prepareIncomeBarChartData = (data = []) => {
-//     const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
-
-//     const chartData = sortedData.map((item) => ({
-//         month: moment(item?.date).format('Do MMM'),
-//         amount: item?.amount,
-//         source: item?.source,
-//     }));
-
-//     return chartData;
-// }
-
-// src/utils/helper.js  (add/replace this function)
 
 export const prepareIncomeBarChartData = (transactions = []) => {
     if (!transactions || transactions.length === 0) {
@@ -74,6 +61,68 @@ export const prepareIncomeBarChartData = (transactions = []) => {
         amount: Math.round(amount)
     }));
 };
+
+export const prepareExpenseLineChartData = (data = []) => {
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const chartData = sortedData.map((item) => ({
+        month: moment(item?.date).format('Do MMM'),
+        amount: item?.amount,
+        category: item?.category,
+    }));
+
+    return chartData;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const prepareIncomeBarChartData = (data = []) => {
+//     const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
+
+//     const chartData = sortedData.map((item) => ({
+//         month: moment(item?.date).format('Do MMM'),
+//         amount: item?.amount,
+//         source: item?.source,
+//     }));
+
+//     return chartData;
+// }
+
+// src/utils/helper.js  (add/replace this function)
+
 
 // export const prepareExpenseBarChartData = (transactions = []) => {
 //     if (!transactions || transactions.length === 0) {

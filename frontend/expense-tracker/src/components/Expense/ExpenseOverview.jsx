@@ -1,43 +1,42 @@
 import React from 'react'
 import { LuPlus } from "react-icons/lu"
 import CustomBarChart from '../Charts/CustomBarChart'
-import { prepareIncomeBarChartData } from '../../utils/helper'
+import { prepareExpenseLineChartData, prepareIncomeBarChartData } from '../../utils/helper'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { prepareExpenseBarChartData } from '../../utils/helper';
+import CustomLineChart from '../Charts/CustomLineChart'
 
-const ExpenseOverview = ({ transactions, onAddExpense }) => {
-    const [chartData, setCharData] = useState([])
-    //console.log("transactions:", transactions);
-    //console.log("chartData:", chartData);
-    useEffect(() => {
-      const result = prepareExpenseBarChartData(transactions);
-      console.log("chart result: ", result);
-      setCharData(result);
+const ExpenseOverview = ({ transactions, onExpenseIncome }) => {
+    const [chartData, setChartData] = useState([]);
 
-      return () => {};
-    }, [transactions]);
-  return (
-    <div className="card">
-      <div className="flex items-center justify-between">
-        <div>
-          <h5 className='text-lg'>Expense Overview</h5>
-          <p className='text-xs text-gray-400 mt-0.5'>
-            Track your earning over time and analyze your expense trend
-          </p>
-        </div>
+  useEffect(() => {
+    const result = prepareExpenseLineChartData(transactions);
+    setChartData(result);
 
-        <button className='add-btn' onClick={onAddExpense}>
-          <LuPlus className='text-lg' />
-          Add Expense
-        </button>
+    return () => {};
+  }, [transactions])
+    
+  return <div className="card ">
+    <div className="flex items-center justify-between">
+      <div className="">
+        <h5 className='text-lg'>Expense Overview</h5>
+        <p className='text-xs text-gray-400 mt-0.5'>
+          Track your spending trends over time and gain insights into where
+          your money goes.
+        </p>
       </div>
 
-      <div className="mt-10">
-        <CustomBarChart data={chartData}/>
-      </div>
+      <button className='add-btn' onClick={onExpenseIncome}>
+        <LuPlus className='text-lg' />
+        Add Expense 
+      </button>
     </div>
-  )
+
+    <div className="mt-10">
+      <CustomLineChart data={chartData} />
+    </div>
+  </div>
 }
 
 export default ExpenseOverview
